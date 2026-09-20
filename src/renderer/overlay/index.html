@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="overlay.css" />
+</head>
+<body class="overlay phase-idle">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="vignette" id="vignette"></div>
+  <div class="drifters" id="drifters"></div>
+
+  <!-- roaming nag used during the disrupt phase -->
+  <div class="roamer" id="roamer">
+    <div class="roam-char" id="roamChar"></div>
+    <p class="roam-line" id="roamLine"></p>
+  </div>
+
+  <!-- click shield -->
+  <div class="shield" id="shield">
+    <div class="shield-inner">
+      <div class="shield-char" id="shieldChar"></div>
+      <p class="shield-line" id="shieldLine">clicks are temporarily unavailable 🙃</p>
+    </div>
+  </div>
+
+  <!-- the takeover -->
+  <main class="peak" id="peak">
+    <div class="peak-char" id="peakChar"></div>
+    <h1 class="peak-line" id="peakLine"></h1>
+    <div class="clock" id="clock">00:00</div>
+    <p class="sub" id="sub"></p>
+    <div class="peak-actions">
+      <button class="btn-primary big" data-act="goodnight" id="bedBtn">okay, goodnight 😴</button>
+      <button class="btn-ghost hold" data-hold="quit-app">hold to quit geep</button>
+    </div>
+    <p class="fineprint">panic key: ⌘⌥⇧G</p>
+  </main>
+
+  <!-- goodnight -->
+  <section class="night" id="night">
+    <div class="moon">🌙</div>
+    <h1 id="nightLine">goodnight</h1>
+    <p class="sub">sleep well. i'll be here tomorrow.</p>
+    <div class="peak-actions">
+      <button class="btn-primary big" data-act="sleep-display">turn the screen off</button>
+      <button class="btn-ghost hold" data-hold="quit-app">hold to quit geep</button>
+    </div>
+  </section>
+
+  <script src="../shared/characters.js"></script>
+  <script src="../shared/copy.js"></script>
+  <script src="overlay.js"></script>
+</body>
+</html>

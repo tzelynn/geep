@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body class="settings">
+  <header class="hero">
+    <div class="hero-char" id="heroChar"></div>
+    <div>
+      <h1>geep</h1>
+      <p class="status" id="status">…</p>
+      <p class="tonight" id="tonight"></p>
+    </div>
+    <span class="saved" id="saved">saved ✓</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>weekly bedtime</h2>
+      <p class="hint">times before 04:00 belong to the night before — 00:30 on friday means friday night.</p>
+      <div class="rows" id="weekly"></div>
+    </section>
+
+    <section class="card">
+      <h2>exceptions</h2>
+      <p class="hint">one-off overrides. the weekly schedule stays untouched.</p>
+      <div class="rows" id="exceptions"></div>
+      <button class="btn-ghost add" id="addException">+ add a night</button>
+    </section>
+
+    <section class="card">
+      <h2>escalation</h2>
+      <div class="grid" id="options"></div>
+    </section>
+
+    <section class="card">
+      <h2>test drive</h2>
+      <p class="hint">fast-forward a whole evening so you can feel it without waiting for midnight.</p>
+      <div class="chips">
+        <button class="btn-primary" data-demo='{"fromMinutes":46,"speed":30}'>full run · 45m in 90s</button>
+        <button class="btn-ghost" data-demo='{"fromMinutes":30,"speed":12}'>sticky panel</button>
+        <button class="btn-ghost" data-demo='{"fromMinutes":20,"speed":8}'>disruption</button>
+        <button class="btn-ghost" data-demo='{"fromMinutes":10,"speed":4}'>peak takeover</button>
+        <button class="btn-ghost" data-demo='{"stop":true}'>stop test</button>
+      </div>
+      <p class="hint">escape hatches: <b>⌘⌥⇧G</b> calls off tonight · quitting geep always works.</p>
+    </section>
+  </main>
+
+  <script src="../shared/characters.js"></script>
+  <script src="../shared/copy.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

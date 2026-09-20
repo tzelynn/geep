@@ -1,0 +1,40 @@
+{
+  "name": "geep",
+  "version": "0.1.0",
+  "description": "a cute desktop gremlin that nags you into bed",
+  "main": "src/main/index.js",
+  "author": "tzelynn",
+  "license": "MIT",
+  "scripts": {
+    "icons": "node scripts/make-icons.js",
+    "start": "electron .",
+    "demo": "GEEP_DEMO=1 electron .",
+    "dist": "npm run icons && electron-builder --mac dir",
+    "dmg": "npm run icons && electron-builder --mac dmg"
+  },
+  "build": {
+    "appId": "sg.geep.app",
+    "productName": "geep",
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "mac": {
+      "category": "public.app-category.healthcare-fitness",
+      "target": [
+        "dir"
+      ],
+      "icon": "build/icon.png",
+      "identity": null
+    }
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0"
+  }
+}

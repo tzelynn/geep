@@ -1,0 +1,53 @@
+body.nudge { background: transparent; overflow: hidden; padding: 10px; height: 100vh; }
+
+.card {
+  position: relative;
+  height: 100%;
+  border-radius: var(--radius);
+  background: linear-gradient(165deg, var(--cream), var(--lav));
+  box-shadow: 0 14px 40px rgba(28, 12, 50, .28);
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow: hidden;
+  animation: pop .22s ease-out;
+  border: 2px solid rgba(255,255,255,.7);
+}
+.card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,.45), transparent 60%);
+  pointer-events: none;
+}
+
+.char { width: 130px; height: 130px; animation: float 3.4s ease-in-out infinite; flex: none; }
+.body { width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.line { margin: 2px 0 0; font-size: 17px; font-weight: 800; line-height: 1.3; }
+.meta { margin: 0; font-size: 12px; font-weight: 700; color: var(--ink-soft); letter-spacing: .02em; }
+.bar { width: 78%; height: 6px; border-radius: 99px; background: rgba(58,32,84,.12); overflow: hidden; margin: 6px 0 2px; }
+.bar span { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--pink); transition: width .6s linear; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+
+/* ---- sticky, impatient mode ---- */
+.card.persist {
+  background: linear-gradient(165deg, #fff0f5, #ffd9e6);
+  border-color: rgba(255,137,176,.65);
+  animation: pop .22s ease-out, jitter var(--jit, 1.6s) ease-in-out infinite;
+}
+.card.persist .line { font-size: calc(17px + var(--grow, 0) * 10px); }
+.card.persist .char {
+  animation: wobble calc(2.4s - var(--grow, 0) * 1.4s) ease-in-out infinite;
+  width: calc(150px + var(--grow, 0) * 110px);
+  height: calc(150px + var(--grow, 0) * 110px);
+}
+.card.hot { background: linear-gradient(165deg, #ffe3ec, #ffc0d6); }
+
+/* ---- tiny "you're done" pill ---- */
+.card.pill { flex-direction: row; gap: 12px; padding: 12px 16px; align-items: center; }
+.card.pill .char { width: 56px; height: 56px; }
+.card.pill .body { text-align: left; align-items: flex-start; gap: 0; }
+.card.pill .line { font-size: 14px; }
+.card.pill .bar, .card.pill .actions { display: none; }

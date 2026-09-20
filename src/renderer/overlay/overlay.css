@@ -1,0 +1,78 @@
+html, body { height: 100%; }
+body.overlay { background: transparent; overflow: hidden; pointer-events: none; }
+body.overlay * { pointer-events: none; }
+body.blocking, body.blocking * { pointer-events: auto; }
+
+.backdrop, .vignette, .drifters, .roamer, .shield, .peak, .night {
+  position: fixed; inset: 0;
+}
+
+/* ---- ambient disruption ---- */
+.backdrop { opacity: 0; transition: opacity .6s ease; background: radial-gradient(130% 110% at 50% 10%, #4a2f77 0%, #241539 55%, #150c24 100%); }
+.vignette {
+  opacity: 0; --vis: 0;
+  box-shadow: inset 0 0 calc(80px + var(--heat, 0) * 260px) calc(10px + var(--heat, 0) * 70px) rgba(255, 105, 160, .55);
+}
+body.phase-disrupt .vignette { animation: vpulse 2.6s ease-in-out infinite; }
+@keyframes vpulse {
+  0%, 100% { opacity: calc(var(--vis) * .55) }
+  50% { opacity: var(--vis) }
+}
+
+.drifters { overflow: hidden; }
+.drifter { position: absolute; width: 90px; height: 90px; opacity: .85; animation: drift linear forwards; }
+@keyframes drift {
+  from { transform: translate(var(--x0), var(--y0)) rotate(0deg); opacity: 0 }
+  10% { opacity: .9 }
+  90% { opacity: .9 }
+  to { transform: translate(var(--x1), var(--y1)) rotate(var(--spin, 20deg)); opacity: 0 }
+}
+
+/* ---- roaming nag card ---- */
+.roamer {
+  inset: auto; position: fixed;
+  width: 320px; padding: 16px 18px 18px;
+  border-radius: var(--radius);
+  background: linear-gradient(165deg, #fff6fa, #ffd9e8);
+  box-shadow: 0 18px 50px rgba(20, 8, 40, .45);
+  display: none; flex-direction: column; align-items: center; gap: 6px; text-align: center;
+  transition: left .45s cubic-bezier(.34,1.3,.64,1), top .45s cubic-bezier(.34,1.3,.64,1), width .4s ease;
+  border: 2px solid rgba(255,255,255,.8);
+}
+body.phase-disrupt .roamer { display: flex; }
+.roam-char { width: 120px; height: 120px; animation: float 2.6s ease-in-out infinite; }
+.roam-line { margin: 0; font-size: 18px; font-weight: 800; }
+
+/* ---- click shield ---- */
+.shield { display: none; place-items: center; background: rgba(32, 16, 56, .55); backdrop-filter: blur(3px); }
+body.blocking.phase-disrupt .shield { display: grid; animation: pop .18s ease-out; }
+.shield-inner { display: grid; justify-items: center; gap: 10px; }
+.shield-char { width: 220px; height: 220px; animation: jitter .5s ease-in-out infinite; }
+.shield-line { color: #fff; font-size: 26px; font-weight: 900; margin: 0; text-shadow: 0 4px 18px rgba(0,0,0,.4); }
+
+/* ---- peak takeover ---- */
+.peak, .night { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; color: #fff; }
+body.phase-peak .peak { display: flex; animation: pop .3s ease-out; }
+body.phase-goodnight .night { display: flex; animation: pop .5s ease-out; }
+body.phase-peak .backdrop, body.phase-goodnight .backdrop { opacity: 1; }
+body.phase-goodnight .backdrop { background: radial-gradient(120% 100% at 50% 30%, #241a44 0%, #120c22 60%, #08050f 100%); }
+body.shake { animation: shakeit .45s ease-in-out; }
+@keyframes shakeit {
+  0%,100% { transform: translate(0,0) } 20% { transform: translate(-6px,3px) }
+  50% { transform: translate(5px,-4px) } 80% { transform: translate(-3px,-2px) }
+}
+
+.peak-char { width: 220px; height: 220px; animation: float 2.2s ease-in-out infinite; }
+.peak-line { font-size: 40px; margin: 4px 0 0; font-weight: 900; letter-spacing: -.02em; max-width: 80vw; }
+.clock { font-size: 68px; font-weight: 900; letter-spacing: .02em; font-variant-numeric: tabular-nums; color: var(--pink); text-shadow: 0 6px 30px rgba(255,105,160,.5); }
+.sub { margin: 0; opacity: .8; font-size: 15px; font-weight: 700; }
+.peak-actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; justify-content: center; }
+button.big { font-size: 18px; padding: 15px 30px; }
+button.hold { color: #fff; background: rgba(255,255,255,.14); position: relative; overflow: hidden; }
+button.hold::after {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: var(--hold, 0%);
+  background: rgba(255,255,255,.28); transition: width .1s linear;
+}
+.fineprint { margin: 14px 0 0; font-size: 12px; opacity: .45; font-weight: 700; }
+.night h1 { font-size: 46px; margin: 6px 0 0; font-weight: 900; }
+.moon { font-size: 80px; animation: float 5s ease-in-out infinite; }
