@@ -49,6 +49,9 @@ class WindowManager {
     const win = new BrowserWindow({
       width: 400,
       height: 340,
+      // a non-activating NSPanel: clicking it must not activate geep, or macOS
+      // drags the user off their fullscreen video to the settings window
+      type: 'panel',
       show: false,
       frame: false,
       transparent: true,
@@ -71,6 +74,7 @@ class WindowManager {
   makeOverlay (display) {
     const win = new BrowserWindow({
       ...display.bounds,
+      type: 'panel', // same reason as the nudge: clicks must not activate geep
       show: false,
       frame: false,
       transparent: true,

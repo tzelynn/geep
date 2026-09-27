@@ -56,7 +56,7 @@ function buildTray (state = {}) {
     },
     { label: 'Call it off for tonight', click: () => panic() },
     { type: 'separator' },
-    { label: 'Panic key: ⌘⌥⇧G', enabled: false },
+    { label: 'Panic key: ⌘G', enabled: false },
     { label: 'Quit geep', click: () => app.quit() }
   ]))
 }
@@ -69,6 +69,19 @@ function setLoginItem (on) {
     app.setLoginItemSettings({ openAtLogin: !!on })
   } catch (err) {
     console.warn('[geep] login item unavailable:', err.message)
+  }
+}
+
+// ⌘G is Find Next everywhere else, so only hold it while geep is on screen
+const PANIC_KEY = 'CommandOrControl+G'
+const PANIC_PHASES = new Set(['prep', 'prepdone', 'persist', 'disrupt', 'peak', 'goodnight'])
+function syncPanicKey (state) {
+  const want = PANIC_PHASES.has(state.phase)
+  const have = globalShortcut.isRegistered(PANIC_KEY)
+  if (want && !have) {
+    if (!globalShortcut.register(PANIC_KEY, panic)) console.warn(`[geep] could not register panic shortcut ${PANIC_KEY}`)
+  } else if (!want && have) {
+    globalShortcut.unregister(PANIC_KEY)
   }
 }
 
@@ -100,6 +113,7 @@ app.whenReady().then(() => {
   let lastPhase = null
   engine.on('state', (state) => {
     windows.apply(state)
+    syncPanicKey(state)
     handleAudio(state)
     buildTray(state)
     if (state.phase !== lastPhase) {
@@ -125,8 +139,6 @@ app.whenReady().then(() => {
   buildTray()
   windows.syncOverlays()
   engine.start()
-
-  globalShortcut.register('CommandOrControl+Alt+Shift+G', panic)
 
   if (process.env.GEEP_DEMO) {
     engine.startDemo({

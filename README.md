@@ -37,7 +37,7 @@ stages — those are unconditional.
 
 ## escape hatches
 
-- **⌘⌥⇧G** — calls off tonight entirely (global, works during the takeover)
+- **⌘G** — calls off tonight entirely (global, works during the takeover)
 - **hold to quit geep** — 1.5s hold button on the takeover screen
 - tray menu → *Call it off for tonight* / *Quit geep*
 - ⌘Q also still works

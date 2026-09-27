@@ -80,7 +80,7 @@ geep was the one that muted (`weMuted`); `will-quit` and the panic path both unm
 ## Invariants worth keeping
 
 - **Always leave an escape hatch that works while clicks are blocked.** Today: the global
-  `⌘⌥⇧G` panic shortcut, the 1.5s hold-to-quit button, the tray menu, and ⌘Q.
+  `⌘G` panic shortcut, the 1.5s hold-to-quit button, the tray menu, and ⌘Q.
 - Quitting the app is the intended nuclear option per the vision doc — don't make it harder.
 - Marking prep done skips only the sticky `persist` stage. The `disrupt` and `peak` log-off stages
   are unconditional.
